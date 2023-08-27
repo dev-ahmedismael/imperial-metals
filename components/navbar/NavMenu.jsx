@@ -4,6 +4,11 @@ import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { blue, indigo, lime } from "@mui/material/colors";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const NavMenu = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -64,10 +69,9 @@ const NavMenu = () => {
       flexDirection={"column"}
       justifyContent={"center"}
       height={"100%"}
-      onClick={() => setIsMenuActive(!isMenuActive)}
     >
-      <Button>
-        <MenuIcon sx={{ color: "#716e79" }} />
+      <Button onClick={() => setIsMenuActive(!isMenuActive)}>
+        <MenuIcon sx={{ color: lime[900] }} />
       </Button>
 
       <Box position={"absolute"} zIndex={10} top={70} left={0} width={"100%"}>
@@ -81,17 +85,30 @@ const NavMenu = () => {
           >
             {pages.map((page) => (
               <Box key={page.id} my={4}>
-                <Container>
-                  <Link href={"#"}>
-                    <Typography
-                      textAlign={"center"}
-                      color={indigo[900]}
-                      sx={{ "&:hover": { color: lime[900] } }}
+                {page.subPages.length === 0 ? (
+                  <Box borderRadius={1}>
+                    <Container>
+                      <Typography>{page.title}</Typography>
+                    </Container>
+                  </Box>
+                ) : (
+                  <Accordion sx={{ boxShadow: 0 }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id={page.id}
                     >
-                      {page.title}
-                    </Typography>
-                  </Link>
-                </Container>
+                      <Typography>{page.title}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {page.subPages.map((e, index) => (
+                        <Box key={index} display={"flex"} mb={2}>
+                          <Typography ml={2}>{e}</Typography>
+                        </Box>
+                      ))}
+                    </AccordionDetails>
+                  </Accordion>
+                )}
               </Box>
             ))}
           </Box>
