@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -25,7 +26,14 @@ const Footer = () => {
           <Typography fontSize={"small"}>
             Contact | Legal Notice | Privacy Statement
           </Typography>
-          <Typography fontSize={"small"}>Developed by Ahmed Ismael </Typography>
+
+          <Typography fontSize={"small"}>
+            Developed by{" "}
+            <Link href={"https://ahmedismael.vercel.app"} target="_blank">
+              {" "}
+              Ahmed Ismael{" "}
+            </Link>
+          </Typography>
         </Box>
       </Container>
     </footer>
